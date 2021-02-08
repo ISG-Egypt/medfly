@@ -1,5 +1,5 @@
 <template>
-    <section :class="['flex flex-col md:flex-row w-full h-full', ...classes]">
+    <section :class="['flex w-full h-full', ...classes]">
         <slot></slot>
     </section> 
 </template>
@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     section {
         min-width: 100vw; 
         min-height: 100vh; 
