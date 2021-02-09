@@ -4,9 +4,9 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'landing',
+    title: 'Medfly Clinic',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'ar'
     },
     meta: [
       { charset: 'utf-8' },
