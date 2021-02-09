@@ -1,10 +1,12 @@
 <template>
   <div class="font-tajawal">
-    <SectionFull classes="">
+    <SectionFull classes="relative">
       <!-- main -->
+        <img class="absolute top-0 left-0" style="max-width: 220px;" src="~/assets/images/logo.svg" title="MedFly logo" />
         <div 
           class="bg-vd-purple"
-          style="height: 100%; width: 100%;"
+          style="width: 100%"
+          
         >
           <div 
           
@@ -12,10 +14,14 @@
             :style="{
               minHeight: '60vh',
               maxHeight: '60vh',
+              width: '100%',
+              overflow: 'hidden'
             }"
             
           > 
-             <img src="~/assets/images/bg-first.jpg" />
+            <!-- <div class="relative" style="width: 100%; overflow: hidden;">
+             <img class="absolute w-full h-full" src="~/assets/images/bg-first.jpg" />
+            </div> -->
           </div>
           <div 
           
@@ -187,7 +193,7 @@ export default {
     background-image: url('~assets/images/bg-first.jpg');
     min-height: 60vh;
     max-height: 60vh;
-    background-position: 90% -55%;
+    background-size: cover;
     border-bottom: 3px solid #29151e;
   }
 
