@@ -35,9 +35,10 @@
           > 
             
             <div class="w-full md:w-6/12 flex flex-col items-center md:justify-center md:items-center my-4 mt-12" style="direction: rtl">
-              <span class="text-4xl font-bold">تمتعي بنعومة دائمة </span>
-              <span class="text-3xl font-bold">إزالة الشعر بالليزر</span>
+              <span class="text-4xl font-bold">{{ heading }}</span>
+              <span class="text-3xl font-bold">{{ subtitle }}</span>
             </div>
+
             <div class="w-full md:w-6/12 flex items-center justify-center">
             <button 
                 class="px-8 py-4 bg-vd-purple text-white text-2xl rounded flex items-center justify-between"
@@ -122,16 +123,49 @@
 </template>
 
 <script>
-export default {
 
+const places = {          
+  WHATSAPP: 'https://wa.me/201101740224?text='+encodeURI('لوسمحت عندي استفسار بخصوص ازالة الشعر بالليزر'),
+  ADDRESS: 'https://goo.gl/maps/cMfQEU3RqD6rqQwk8',
+  FACEBOOK: 'https://www.facebook.com/Medfly-clinic-112243000690582'
+}
+
+const keywords = {
+  default: 'laser-hair-removal',
+  'laser-hair-removal': {
+    heading: 'إزالة الشعر بالليزر',
+    subtitle: 'تمتعي بنعومة دائمة'
+  },
+  'brazillian-bottom': {
+    heading: 'المؤخرة البرازيلية',
+    subtitle: 'إنت أحلى منهم'
+  },
+
+}
+
+export default {
+    created () {
+      
+      this.keyword = this.$route.params.keyword
+      
+      if (!this.keyword) return
+      if (keywords[this.keyword] === undefined) return 
+      
+      this.heading = keywords[this.keyword].heading
+      this.subtitle = keywords[this.keyword].subtitle
+
+    },
+    data () {
+      return {
+        keyword: undefined,
+        heading: keywords[keywords.default].heading,
+        subtitle: keywords[keywords.default].subtitle
+      }
+    },
     methods: {
       goTo (place) {
 
-        const places = {          
-          WHATSAPP: 'https://wa.me/201101740224?text='+encodeURI('لوسمحت عندي استفسار بخصوص ازالة الشعر بالليزر'),
-          ADDRESS: 'https://goo.gl/maps/cMfQEU3RqD6rqQwk8',
-          FACEBOOK: 'https://www.facebook.com/Medfly-clinic-112243000690582'
-        }
+
 
         window.open(places[place])
       }
