@@ -124,23 +124,19 @@
 
 <script>
 
-const places = {          
-  WHATSAPP: 'https://wa.me/201101740224?text='+encodeURI('لوسمحت عندي استفسار بخصوص ازالة الشعر بالليزر'),
-  ADDRESS: 'https://goo.gl/maps/cMfQEU3RqD6rqQwk8',
-  FACEBOOK: 'https://www.facebook.com/Medfly-clinic-112243000690582'
-}
 
 const keywords = {
   default: 'laser-hair-removal',
   'laser-hair-removal': {
     heading: 'إزالة الشعر بالليزر',
-    subtitle: 'تمتعي بنعومة دائمة'
+    subtitle: 'تمتعي بنعومة دائمة',
+    whatsapp: 'ازالة الشعر بالليزر'
   },
   'brazillian-bottom': {
     heading: 'المؤخرة البرازيلية',
-    subtitle: 'إنت أحلى منهم'
-  },
-
+    subtitle: 'إنت أحلى منهم',
+    whatsapp: 'المؤخرة البرازيلية'
+  }
 }
 
 export default {
@@ -153,19 +149,25 @@ export default {
       
       this.heading = keywords[this.keyword].heading
       this.subtitle = keywords[this.keyword].subtitle
+      this.whatsapp = keywords[this.keyword].whatsapp
 
     },
     data () {
       return {
         keyword: undefined,
         heading: keywords[keywords.default].heading,
-        subtitle: keywords[keywords.default].subtitle
+        subtitle: keywords[keywords.default].subtitle,
+        whatsapp: keywords[keywords.default].whatsapp
       }
     },
     methods: {
       goTo (place) {
 
-
+        const places = {          
+          WHATSAPP: 'https://wa.me/201101740224?text='+encodeURI('لوسمحت عندي استفسار بخصوص ' + this.whatsapp),
+          ADDRESS: 'https://goo.gl/maps/cMfQEU3RqD6rqQwk8',
+          FACEBOOK: 'https://www.facebook.com/Medfly-clinic-112243000690582'
+        }
 
         window.open(places[place])
       }
