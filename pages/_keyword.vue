@@ -29,7 +29,8 @@
             :style="{
               minHeight: '40vh',
               maxHeight: '40vh',
-              direction: 'rtl'
+              direction: 'rtl',
+              backgroundImage: `url(${backgroundUrl})`
             }"
             
           > 
@@ -136,6 +137,12 @@ const keywords = {
     heading: 'المؤخرة البرازيلية',
     subtitle: 'إنت أحلى منهم',
     whatsapp: 'المؤخرة البرازيلية'
+  },
+  'hair-implant': {
+    heading: 'زراعة الشعر',
+    subtitle: 'رجع لحظة حلوة في يوم عشتها',
+    whatsapp: 'زراعة الشعر',
+    cta_bg: 'cta-bghair-implant.jpg'
   }
 }
 
@@ -143,6 +150,7 @@ export default {
     created () {
       
       this.keyword = this.$route.params.keyword
+
       
       if (!this.keyword) return
       if (keywords[this.keyword] === undefined) return 
@@ -150,14 +158,18 @@ export default {
       this.heading = keywords[this.keyword].heading
       this.subtitle = keywords[this.keyword].subtitle
       this.whatsapp = keywords[this.keyword].whatsapp
+      
+      if (keywords[this.keyword].cta_bg) this.cta_bg = keywords[this.keyword].cta_bg
 
     },
     data () {
       return {
         keyword: undefined,
+        images_folder: '~/assets/images/',
         heading: keywords[keywords.default].heading,
         subtitle: keywords[keywords.default].subtitle,
-        whatsapp: keywords[keywords.default].whatsapp
+        whatsapp: keywords[keywords.default].whatsapp,
+        cta_bg: keywords[keywords.default].cat_bg,
       }
     },
     methods: {
@@ -170,6 +182,11 @@ export default {
         }
 
         window.open(places[place])
+      }
+    },
+    computed: {
+      backgroundUrl () {
+        return '/' + (this.cta_bg || 'cta-bg.jpg')
       }
     }
     
@@ -234,7 +251,7 @@ export default {
   }
 
   .header-cta { 
-    background-image: url('~assets/images/cta-bg.jpg');
+    /* background-image: url('~assets/images/cta-bg.jpg'); */
     background-position: center;
     background-size: cover;
   }
