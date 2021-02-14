@@ -12,10 +12,9 @@
           
             class="block header-photo"
             :style="{
-              minHeight: '60vh',
-              maxHeight: '60vh',
               width: '100%',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              backgroundImage: `url(${mainBackgroundUrl})`
             }"
             
           > 
@@ -25,25 +24,32 @@
           </div>
           <div 
           
-            class="block header-cta flex flex-col md:flex-row"
+            class="block header-cta pb-20 md:pb-0 flex flex-col md:flex-row"
             :style="{
-              minHeight: '40vh',
-              maxHeight: '40vh',
               direction: 'rtl',
-              backgroundImage: `url(${backgroundUrl})`
+              backgroundImage: `url(${ctaBackgroundUrl})`
             }"
             
           > 
             
-            <div class="w-full md:w-6/12 flex flex-col items-center md:justify-center md:items-center my-4 mt-12" style="direction: rtl">
+            <div class="w-full md:w-6/12 flex flex-col items-center md:justify-center md:items-center my-4 mt-12" :style="{
+                direction: 'rtl',
+                color: cta_text_color_light ? '#FFF' : '#000'
+              }">
               <span class="text-4xl font-bold">{{ heading }}</span>
               <span class="text-3xl font-bold">{{ subtitle }}</span>
             </div>
 
             <div class="w-full md:w-6/12 flex items-center justify-center">
             <button 
-                class="px-8 py-4 bg-vd-purple text-white text-2xl rounded flex items-center justify-between"
-                style="min-width: 240px;"
+                :class="['px-8 py-4 text-white text-2xl rounded flex items-center justify-between',
+                  cta_text_color_light ?  '': 'bg-vd-purple'
+                ]"
+                :style="{
+                  minWidth: '240px',
+                  backgroundColor: cta_text_color_light ? '#bf697b' : ''
+                }"
+                
                 @click="goTo('WHATSAPP')"
               >
                 <span>إحجز الآن</span>
@@ -131,19 +137,50 @@ const keywords = {
   'laser-hair-removal': {
     heading: 'إزالة الشعر بالليزر',
     subtitle: 'تمتعي بنعومة دائمة',
-    whatsapp: 'ازالة الشعر بالليزر'
+    whatsapp: 'ازالة الشعر بالليزر',
   },
   'brazillian-bottom': {
     heading: 'المؤخرة البرازيلية',
     subtitle: 'إنت أحلى منهم',
-    whatsapp: 'المؤخرة البرازيلية'
+    whatsapp: 'المؤخرة البرازيلية',
   },
   'hair-implant': {
     heading: 'زراعة الشعر',
     subtitle: 'رجع لحظة حلوة في يوم عشتها',
     whatsapp: 'زراعة الشعر',
     cta_bg: 'cta-bghair-implant.jpg'
-  }
+  },
+  'botox': {
+    heading: 'وداعا للتجاعيد مع البوتكس',
+    subtitle: 'في خلال ١٥ دقيقة',
+    whatsapp: 'بوتكس',
+    cta_bg: 'cta-bgav.jpg',
+    cta_text_color_light: true 
+  },
+  'filler': {
+    heading: 'فيلر كولاجين',
+    subtitle: 'نتائج رائعة وسريعة',
+    whatsapp: 'فيلر',
+    cta_bg: 'cta-bgav.jpg',
+    cta_text_color_light: true 
+  },
+  'sleeve-gastrectomy': {
+    heading: 'تكميم معده',
+    subtitle: 'عشان نساعدك تخس',
+    whatsapp: 'فيلر',
+    cta_bg: 'cta-bgav.jpg',
+    cta_text_color_light: true 
+  },
+  'after-valentines': {
+    heading: 'Because surprises are always better',
+    subtitle: 'Get another one for your love',
+    whatsapp: 'I am looking for a gift for my ',
+    main_bg: 'image-main-av.jpg',
+    cta_bg: 'cta-bgav.jpg',
+    cta_text_color_light: true 
+  },
+  
+
 }
 
 export default {
@@ -160,7 +197,11 @@ export default {
       this.whatsapp = keywords[this.keyword].whatsapp
       
       if (keywords[this.keyword].cta_bg) this.cta_bg = keywords[this.keyword].cta_bg
+      if (keywords[this.keyword].main_bg) this.main_bg = keywords[this.keyword].main_bg
 
+      
+      if (keywords[this.keyword].cta_text_color_light) this.cta_text_color_light = keywords[this.keyword].cta_text_color_light
+      
     },
     data () {
       return {
@@ -169,7 +210,9 @@ export default {
         heading: keywords[keywords.default].heading,
         subtitle: keywords[keywords.default].subtitle,
         whatsapp: keywords[keywords.default].whatsapp,
+        main_bg: undefined,
         cta_bg: keywords[keywords.default].cat_bg,
+        cta_text_color_light: false
       }
     },
     methods: {
@@ -185,8 +228,11 @@ export default {
       }
     },
     computed: {
-      backgroundUrl () {
+      ctaBackgroundUrl () {
         return '/' + (this.cta_bg || 'cta-bg.jpg')
+      },
+      mainBackgroundUrl () {
+        return '/' + (this.main_bg || 'bg-first.jpg')
       }
     }
     
@@ -213,7 +259,7 @@ export default {
   }
 
   .main {
-    background-image: url('~assets/images/bg2.jpg');
+    /* background-image: url('~assets/images/bg2.jpg'); */
     background-size: cover;
     background-position: top;
     background-repeat: no-repeat;
@@ -244,14 +290,16 @@ export default {
 
   .header-photo {
     background-image: url('~assets/images/bg-first.jpg');
-    min-height: 60vh;
-    max-height: 60vh;
+    min-height: 80vh;
+    max-height: 80vh;
     background-size: cover;
     border-bottom: 3px solid #29151e;
   }
 
   .header-cta { 
     /* background-image: url('~assets/images/cta-bg.jpg'); */
+    min-height: 20vh;
+
     background-position: center;
     background-size: cover;
   }
