@@ -14,7 +14,8 @@
             :style="{
               width: '100%',
               overflow: 'hidden',
-              backgroundImage: `url(${mainBackgroundUrl})`
+              backgroundImage: `url(${mainBackgroundUrl})`,
+              backgroundPosition: main_background_position ? main_background_position : 'unset'
             }"
             
           > 
@@ -27,7 +28,7 @@
             class="block header-cta pb-20 md:pb-0 flex flex-col md:flex-row"
             :style="{
               direction: 'rtl',
-              backgroundImage: `url(${ctaBackgroundUrl})`
+              backgroundImage: `url(${ctaBackgroundUrl})`,
             }"
             
           > 
@@ -178,10 +179,11 @@ const keywords = {
   'after-valentines': {
     heading: 'فاجئها بهدية تانية',
     subtitle: 'اسعار تبدأ من ٣٠٠ جنيه', 
-    whatsapp: '',
+    whatsapp: 'هدية لبعد الفلانتاين',
     main_bg: 'BG-MAIN.jpg',
+    main_background_position: 'bottom',
     cta_bg: 'cta-bgav.jpg',
-    cta_text_color_light: true 
+    cta_text_color_light: true
   },
   
 
@@ -202,9 +204,8 @@ export default {
       
       if (keywords[this.keyword].cta_bg) this.cta_bg = keywords[this.keyword].cta_bg
       if (keywords[this.keyword].main_bg) this.main_bg = keywords[this.keyword].main_bg
-
-      
       if (keywords[this.keyword].cta_text_color_light) this.cta_text_color_light = keywords[this.keyword].cta_text_color_light
+      if (keywords[this.keyword].main_background_position) this.main_background_position = keywords[this.keyword].main_background_position
       
     },
     data () {
@@ -215,6 +216,7 @@ export default {
         subtitle: keywords[keywords.default].subtitle,
         whatsapp: keywords[keywords.default].whatsapp,
         main_bg: undefined,
+        main_background_position: undefined,
         cta_bg: keywords[keywords.default].cat_bg,
         cta_text_color_light: false
       }
